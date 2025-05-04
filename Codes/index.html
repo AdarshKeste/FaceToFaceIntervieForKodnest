@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KodNest Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Scrollbar hidden for horizontal scroll containers */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between px-4 md:px-8 py-3 border-b border-gray-200 sticky top-0 bg-white z-30">
+        <div class="flex items-center space-x-2">
+            <img src="https://placehold.co/24x24/000000/fff?text=K" alt="KodNest logo letter K in yellow and black" class="w-6 h-6" />
+            <span class="font-bold text-lg text-yellow-400 select-none">KodNest</span>
+        </div>
+        <ul class="hidden md:flex items-center space-x-6 text-sm font-semibold text-gray-700">
+            <li class="flex items-center space-x-1 cursor-pointer hover:text-black">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </li>
+            <li class="flex items-center space-x-1 cursor-pointer hover:text-black">
+                <i class="fas fa-book"></i>
+                <span>Courses</span>
+            </li>
+            <li class="flex items-center space-x-1 cursor-pointer hover:text-black">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Practice</span>
+            </li>
+            <li class="flex items-center space-x-1 cursor-pointer hover:text-black">
+                <i class="fas fa-envelope"></i>
+                <span>Contest</span>
+            </li>
+            <li class="flex items-center space-x-1 cursor-pointer hover:text-black" onclick="window.location.href='f2f-interview.html'">
+                <i class="fas fa-video"></i>
+                <span>F2F Interview</span>
+            </li>
+        </ul>
+        <div class="flex items-center space-x-4">
+            <button class="bg-purple-600 text-white text-xs font-semibold px-4 py-1 rounded-full hover:bg-purple-700 transition">
+                Help and Earn
+            </button>
+            <button class="flex items-center space-x-1 text-xs font-semibold text-gray-700 hover:text-black" aria-label="Mentor Connect">
+                <i class="fas fa-user-friends"></i>
+                <span>Mentor Connect</span>
+            </button>
+            <img src="https://placehold.co/32x32/cccccc/000000?text=U" alt="User profile avatar placeholder circle with letter U" class="w-8 h-8 rounded-full border border-gray-300" />
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 space-y-8">
+        <!-- BroKod Section -->
+        <section class="bg-gray-50 border border-gray-200 rounded-md p-4 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
+            <div class="max-w-xl text-xs text-gray-700 leading-tight">
+                <p class="font-semibold mb-1">BroKod: Your Learning Ally at KodNest</p>
+                <p>
+                    Unlock your potential with BroKod - your mentor, friend, coach, guide, and companion. Available 24/7 to support your journey, from learning to career success.
+                </p>
+                <button class="mt-3 bg-yellow-400 text-black text-xs font-semibold px-4 py-1 rounded hover:bg-yellow-500 transition" type="button">
+                    Chat with BroKod
+                </button>
+            </div>
+            <img src="https://placehold.co/120x120/000000/ffffff?text=BroKod+Character+Waving+Hand" alt="Illustration of a cartoon character with glasses waving hand" class="w-28 h-28 object-contain" />
+        </section>
+
+        <!-- Live Classes -->
+        <section>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xs font-semibold text-gray-700">Live Classes</h2>
+                <button aria-label="Expand or collapse live classes" class="text-xs text-gray-400 hover:text-gray-600" type="button">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" aria-label="Live classes list">
+                <!-- Card 1 -->
+                <article class="border border-gray-300 rounded-md p-3 text-xs text-gray-700" aria-labelledby="live-class-1">
+                    <header class="flex items-center space-x-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold" aria-hidden="true">
+                            J
+                        </div>
+                        <h3 id="live-class-1" class="font-semibold">Java - 2025</h3>
+                        <span class="ml-auto text-green-600 text-[10px] font-semibold flex items-center space-x-1" aria-label="8 classmates">
+                            <i class="fas fa-users"></i>
+                            <span>8 classmates</span>
+                        </span>
+                    </header>
+                    <p class="text-[9px] text-gray-500 mb-1">Mentor: Pavan Kumar</p>
+                    <div class="mb-2">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-900 h-2.5 rounded-full" style="width: 87.2%" aria-valuenow="87.2" aria-valuemin="0" aria-valuemax="100" role="progressbar"></div>
+                        </div>
+                        <div class="flex justify-between text-[9px] text-gray-500 mt-1">
+                            <span>Progress</span>
+                            <span>87.2%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-gray-500 mb-1">
+                        <span>Start Time</span>
+                        <span>03:30 PM - 05:30 PM</span>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-gray-500 mb-1">
+                        <span>Class Date</span>
+                        <span>03/23/2024</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-400 text-[10px]">
+                        <button type="button" aria-label="Help Desk for Java 2025" class="hover:text-blue-900">
+                            <i class="fas fa-headset"></i>
+                            Help Desk
+                        </button>
+                        <button type="button" aria-label="Join Class for Java 2025" class="hover:text-blue-900">
+                            <i class="fas fa-door-open"></i>
+                            Join Class
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="border border-gray-300 rounded-md p-3 text-xs text-gray-700" aria-labelledby="live-class-2">
+                    <header class="flex items-center space-x-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-green-900 text-white flex items-center justify-center font-bold" aria-hidden="true">
+                            S
+                        </div>
+                        <h3 id="live-class-2" class="font-semibold">SQL - 2025</h3>
+                        <span class="ml-auto text-yellow-600 text-[10px] font-semibold flex items-center space-x-1" aria-label="Class not started">
+                            <i class="fas fa-clock"></i>
+                            <span>Class Not Started</span>
+                        </span>
+                    </header>
+                    <p class="text-[9px] text-gray-500 mb-1">Mentor: Pavan Kumar</p>
+                    <div class="mb-2">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-900 h-2.5 rounded-full" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" role="progressbar"></div>
+                        </div>
+                        <div class="flex justify-between text-[9px] text-gray-500 mt-1">
+                            <span>Progress</span>
+                            <span>0%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-gray-500 mb-1">
+                        <span>Start Time</span>
+                        <span>12:30 PM - 03:30 PM</span>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-gray-500 mb-1">
+                        <span>Class Date</span>
+                        <span>03/23/2024</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-400 text-[10px]">
+                        <button type="button" aria-label="Help Desk for SQL 2025" class="hover:text-green-900">
+                            <i class="fas fa-headset"></i>
+                            Help Desk
+                        </button>
+                        <button type="button" aria-label="Join Class for SQL 2025" class="hover:text-green-900">
+                            <i class="fas fa-door-open"></i>
+                            Join Class
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="border border-gray-300 rounded-md p-3 text-xs text-gray-700" aria-labelledby="live-class-3">
+                    <header class="flex items-center space-x-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-cyan-400 text-white flex items-center justify-center font-bold" aria-hidden="true">
+                            T
+                        </div>
+                        <h3 id="live-class-3" class="font-semibold">TCS Preparation 2025</h3>
+                        <span class="ml-auto text-blue-600 text-[10px] font-semibold flex items-center space-x-1" aria-label="Upcoming class">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Upcoming</span>
+                        </span>
+                    </header>
+                    <p class="text-[9px] text-gray-500 mb-1">Mentor: Anjali B</p>
+                    <div class="mb-2">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-cyan-400 h-2.5 rounded-full" style="width: 87.3%" aria-valuenow="87.3" aria-valuemin="0" aria-valuemax="100" role="progressbar"></div>
+                        </div>
+                        <div class="flex justify-between text-[9px] text-gray-500 mt-1">
+                            <span>Progress</span>
+                            <span>87.3%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-gray-500 mb-1">
+                        <span>Start Time</span>
+                        <span>03:30 PM - 04:30 PM</span>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-gray-500 mb-1">
+                        <span>Class Date</span>
+                        <span>03/23/2024</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-400 text-[10px]">
+                        <button type="button" aria-label="Help Desk for TCS Preparation 2025" class="hover:text-cyan-400">
+                            <i class="fas fa-headset"></i>
+                            Help Desk
+                        </button>
+                        <button type="button" aria-label="Join Class for TCS Preparation 2025" class="hover:text-cyan-400">
+                            <i class="fas fa-door-open"></i>
+                            Join Class
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Self-Paced Courses -->
+        <section>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xs font-semibold text-gray-700">Self-Paced Courses</h2>
+                <button aria-label="Expand or collapse self-paced courses" class="text-xs text-gray-400 hover:text-gray-600" type="button">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Self paced courses list">
+                <!-- Card 1 -->
+                <article class="border border-blue-700 rounded-md p-3 text-xs text-gray-700" aria-labelledby="self-paced-1">
+                    <header class="flex items-center space-x-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold" aria-hidden="true">
+                            A
+                        </div>
+                        <h3 id="self-paced-1" class="font-semibold">Aptitude and Reasoning</h3>
+                        <a href="#" class="ml-auto text-xs text-blue-700 font-semibold hover:underline">Self-Paced</a>
+                    </header>
+                    <div class="mb-2">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-700 h-2.5 rounded-full" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" role="progressbar"></div>
+                        </div>
+                        <div class="flex justify-between text-[9px] text-gray-500 mt-1">
+                            <span>Progress</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                    <p class="text-[9px] text-gray-500 mb-2">Course Type</p>
+                    <label class="inline-flex items-center space-x-1 text-[9px] text-gray-600 cursor-pointer">
+                        <input type="checkbox" disabled checked class="form-checkbox" />
+                        <span>View Syllabus</span>
+                    </label>
+                    <button class="mt-2 text-xs font-semibold text-blue-700 hover:underline" type="button">
+                        Continue
+                    </button>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="border border-indigo-700 rounded-md p-3 text-xs text-gray-700" aria-labelledby="self-paced-2">
+                    <header class="flex items-center space-x-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-indigo-900 text-white flex items-center justify-center font-bold" aria-hidden="true">
+                            L
+                        </div>
+                        <h3 id="self-paced-2" class="font-semibold">Learn How to Code</h3>
+                        <a href="#" class="ml-auto text-xs text-indigo-700 font-semibold hover:underline">Self-Paced</a>
+                    </header>
+                    <div class="mb-2">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-indigo-700 h-2.5 rounded-full" style="width: 6.67%" aria-valuenow="6.67" aria-valuemin="0" aria-valuemax="100" role="progressbar"></div>
+                        </div>
+                        <div class="flex justify-between text-[9px] text-gray-500 mt-1">
+                            <span>Progress</span>
+                            <span>6.67%</span>
+                        </div>
+                    </div>
+                    <p class="text-[9px] text-gray-500 mb-2">Course Type</p>
+                    <label class="inline-flex items-center space-x-1 text-[9px] text-gray-600 cursor-pointer">
+                        <input type="checkbox" disabled checked class="form-checkbox" />
+                        <span>View Syllabus</span>
+                    </label>
+                    <button class="mt-2 text-xs font-semibold text-indigo-700 hover:underline" type="button">
+                        Continue
+                    </button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Practice -->
+        <section>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xs font-semibold text-gray-700">Practice</h2>
+                <button aria-label="Expand or collapse practice section" class="text-xs text-gray-400 hover:text-gray-600" type="button">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" aria-label="Practice cards">
+                <!-- Practice Card 1 -->
+                <article class="border border-blue-300 rounded-md p-3 text-xs text-gray-700" aria-labelledby="practice-1">
+                    <header class="flex items-center space-x-2 mb-2">
+                        <i class="fas fa-map-marker-alt text-blue-500"></i>
+                        <h3 id="practice-1" class="font-semibold text-blue-700">Path To Proficiency</h3>
+                        <span class="ml-auto text-xs font-semibold text-gray-700">0%</span>
+                    </header>
+                    <p class="text-[9px] text-gray-500 mb-2">Warmup Challenge</p>
+                    <p class="text-[9px] text-gray-700 mb-2">Total Problems: 22</p>
+                    <label class="inline-flex items-center space-x-1 text-[9px] text-gray-600 cursor-pointer">
+                        <input type="checkbox" disabled class="form-checkbox" />
+                        <span>View Problems</span>
+                    </label>
+                    <button class="mt-2 bg-black text-white text-xs font-semibold px-3 py-1 rounded hover:bg-gray-900 transition w-full" type="button">
+                        Continue
+                    </button>
+                </article>
+
+                <!-- Practice Card 2 -->
+                <article class="border border-green-300 rounded-md p-3 text-xs text-gray-700" aria-labelledby="practice-2">
+                    <header class="flex items-center space-x-2 mb-2">
+                        <i class="fas fa-map-marker-alt text-green-500"></i>
+                        <h3 id="practice-2" class="font-semibold text-green-700">Foundations Of C...</h3>
+                        <span class="ml-auto text-xs font-semibold text-gray-700">0%</span>
+                    </header>
+                    <p class="text-[9px] text-gray-500 mb-2">Beginner Challenge</p>
+                    <p class="text-[9px] text-gray-700 mb-2">Total Problems: 33</p>
+                    <label class="inline-flex items-center space-x-1 text-[9px] text-gray-600 cursor-pointer">
+                        <input type="checkbox" disabled class="form-checkbox" />
+                        <span>View Problems</span>
+                    </label>
+                    <button class="mt-2 bg-black text-white text-xs font-semibold px-3 py-1 rounded hover:bg-gray-900 transition w-full" type="button">
+                        Continue
+                    </button>
+                </article>
+
+                <!-- Practice Card 3 -->
+                <article class="border border-purple-300 rounded-md p-3 text-xs text-gray-700" aria-labelledby="practice-3">
+                    <header class="flex items-center space-x-2 mb-2">
+                        <i class="fas fa-map-marker-alt text-purple-600"></i>
+                        <h3 id="practice-3" class="font-semibold text-purple-700">Masters Of Algori...</h3>
+                        <span class="ml-auto text-xs font-semibold text-gray-700">0%</span>
+                    </header>
+                    <p class="text-[9px] text-gray-500 mb-2">Advance Challenge</p>
+                    <p class="text-[9px] text-gray-700 mb-2">Total Problems: 20</p>
+                    <label class="inline-flex items-center space-x-1 text-[9px] text-gray-600 cursor-pointer">
+                        <input type="checkbox" disabled class="form-checkbox" />
+                        <span>View Problems</span>
+                    </label>
+                    <button class="mt-2 bg-black text-white text-xs font-semibold px-3 py-1 rounded hover:bg-gray-900 transition w-full" type="button">
+                        Continue
+                    </button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Attendance -->
+        <section>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xs font-semibold text-gray-700">Attendance</h2>
+                <button aria-label="Expand or collapse attendance section" class="text-xs text-gray-400 hover:text-gray-600" type="button">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <article class="border border-gray-300 rounded-md p-3 text-xs text-gray-700 max-w-xs" aria-labelledby="attendance-1">
+                <header class="flex items-center justify-between mb-2">
+                    <h3 id="attendance-1" class="font-semibold">Java - 2025</h3>
+                    <span class="text-blue-600 text-[10px] font-semibold">92.07%</span>
+                </header>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-3">
+                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 92.07%" aria-valuenow="92.07" aria-valuemin="0" aria-valuemax="100" role="progressbar"></div>
+                </div>
+                <div class="grid grid-cols-3 text-[9px] text-center">
+                    <div>
+                        <p class="font-semibold">Total</p>
+                        <p>41</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-blue-600">Present</p>
+                        <p>40</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-red-500">Absent</p>
+                        <p>1</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Pending Actions -->
+        <section>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xs font-semibold text-gray-700">Pending Actions</h2>
+                <button aria-label="Expand or collapse pending actions section" class="text-xs text-gray-400 hover:text-gray-600" type="button">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl">
+                <!-- Pending Action 1 -->
+                <article class="border border-red-200 bg-red-50 rounded-md p-3 text-xs text-red-700" aria-labelledby="pending-1">
+                    <header class="flex items-center justify-between mb-2">
+                        <h3 id="pending-1" class="font-semibold">Java - 2025</h3>
+                        <i class="fas fa-exclamation-circle text-red-500"></i>
+                    </header>
+                    <p class="mb-2 flex items-center space-x-1">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Topics requiring immediate attention</span>
+                        <span class="ml-auto font-bold text-red-600">8</span>
+                    </p>
+                    <button class="text-red-600 text-xs font-semibold hover:underline flex items-center space-x-1" type="button">
+                        <span>Complete it now!</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </article>
+
+                <!-- Pending Action 2 -->
+                <article class="border border-red-200 bg-red-50 rounded-md p-3 text-xs text-red-700" aria-labelledby="pending-2">
+                    <header class="flex items-center justify-between mb-2">
+                        <h3 id="pending-2" class="font-semibold">Front-End Technologies</h3>
+                        <i class="fas fa-exclamation-circle text-red-500"></i>
+                    </header>
+                    <p class="mb-2 flex items-center space-x-1">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Topics requiring immediate attention</span>
+                        <span class="ml-auto font-bold text-red-600">2</span>
+                    </p>
+                    <button class="text-red-600 text-xs font-semibold hover:underline flex items-center space-x-1" type="button">
+                        <span>Complete it now!</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Placement Achievements -->
+        <section>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xs font-semibold text-gray-700">Placement Achievements</h2>
+                <button aria-label="Expand or collapse placement achievements section" class="text-xs text-gray-400 hover:text-gray-600" type="button">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-7xl">
+                <!-- Placement Card 1 -->
+                <article class="border border-gray-300 rounded-md p-3 text-xs text-gray-700 flex flex-col" aria-labelledby="placement-1">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <img src="https://placehold.co/40x40/cccccc/000000?text=SS" alt="Profile photo of Sharma Sayed, female with black hair, smiling" class="w-10 h-10 rounded-full object-cover" />
+                        <div>
+                            <p class="font-semibold">Sharma Sayed</p>
+                            <p class="text-[9px] text-gray-500">Digital Technologies</p>
+                            <p class="text-[9px] text-gray-500">Placed in September 2023</p>
+                        </div>
+                    </div>
+                    <p class="text-[9px] text-gray-600 mb-2 truncate">Government Engineering ...</p>
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="bg-green-100 text-green-700 text-[10px] font-semibold px-2 py-0.5 rounded">Got Placed with</span>
+                        <span class="text-green-700 font-bold text-sm">3.5 LPA</span>
+                    </div>
+                    <button class="bg-black text-white text-xs font-semibold py-1 rounded hover:bg-gray-900 transition" type="button">
+                        Read reviews on LinkedIn
+                    </button>
+                </article>
+
+                <!-- Placement Card 2 -->
+                <article class="border border-gray-300 rounded-md p-3 text-xs text-gray-700 flex flex-col" aria-labelledby="placement-2">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <img src="https://placehold.co/40x40/cccccc/000000?text=AB" alt="Profile photo of Ashwini Bhagi, male with beard and glasses, smiling" class="w-10 h-10 rounded-full object-cover" />
+                        <div>
+                            <p class="font-semibold">Ashwini Bhagi</p>
+                            <p class="text-[9px] text-gray-500">Junior Software Engineer @ MR Software</p>
+                            <p class="text-[9px] text-gray-500">Karnataka University, Dharwad</p>
+                        </div>
+                    </div>
+                    <p class="text-[9px] text-gray-600 mb-2 truncate">Hi, I am excited to share about my journey with KodNest, the class environment at KodNest is so...</p>
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="bg-green-100 text-green-700 text-[10px] font-semibold px-2 py-0.5 rounded">Got Placed with</span>
+                        <span class="text-green-700 font-bold text-sm">5 LPA</span>
+                    </div>
+                    <button class="bg-black text-white text-xs font-semibold py-1 rounded hover:bg-gray-900 transition" type="button">
+                        Read reviews on LinkedIn
+                    </button>
+                </article>
+
+                <!-- Placement Card 3 -->
+                <article class="border border-gray-300 rounded-md p-3 text-xs text-gray-700 flex flex-col" aria-labelledby="placement-3">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center font-semibold text-gray-600" aria-hidden="true">
+                            D
+                        </div>
+                        <div>
+                            <p class="font-semibold">Devya</p>
+                            <p class="text-[9px] text-gray-500">Junior Software Engineer @ MR Software</p>
+                            <p class="text-[9px] text-gray-500 truncate max-w-xs">Karnataka Institute of Tech...</p>
+                        </div>
+                    </div>
+                    <p class="text-[9px] text-gray-600 mb-2 truncate">Excited to share that I've been learning so much at KodNest. The trainers are fantastic and easy to help. Huge thanks to KodNest for the...</p>
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="bg-green-100 text-green-700 text-[10px] font-semibold px-2 py-0.5 rounded">Got Placed with</span>
+                        <span class="text-green-700 font-bold text-sm">5 LPA</span>
+                    </div>
+                    <button class="bg-black text-white text-xs font-semibold py-1 rounded hover:bg-gray-900 transition" type="button">
+                        Read reviews on LinkedIn
+                    </button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Handpicked for You -->
+        <section>
+            <h2 class="text-xs font-semibold text-gray-700 mb-2">Handpicked for You</h2>
+            <div class="space-y-2 max-w-7xl">
+                <!-- Top row with two big cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <!-- Card 1 -->
+                    <div class="relative rounded-md overflow-hidden cursor-pointer" style="background-color:#000000" aria-label="Video card for C Divyasri at Infosys with 9.5 LPA">
+                        <img src="https://placehold.co/600x200/000000/ffffff?text=C+Divyasri+Infosys+9.5+LPA+Black+Background+Yellow+Lines" alt="Black background with yellow circular lines and photo of C Divyasri smiling, female, black and white photo" class="w-full h-auto object-cover" />
+                        <button aria-label="Play video for C Divyasri" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2">
+                            <i class="fas fa-play text-black"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="relative rounded-md overflow-hidden cursor-pointer" style="background-color:#004d00" aria-label="Video card for B Gunasekhar at radware with 9 LPA">
+                        <img src="https://placehold.co/600x200/004d00/ffffff?text=B+Gunasekhar+radware+9+LPA+Green+Background+Yellow+Lines" alt="Green background with yellow wavy lines and photo of B Gunasekhar smiling, male, black and white photo" class="w-full h-auto object-cover" />
+                        <button aria-label="Play video for B Gunasekhar" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2">
+                            <i class="fas fa-play text-black"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bottom row with four smaller cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <!-- Card 1 -->
+                    <div class="relative rounded-md overflow-hidden cursor-pointer" style="background-color:#000000" aria-label="Video card for RK Soumya at Infosys with 8 LPA">
+                        <img src="https://placehold.co/300x100/000000/ffffff?text=RK+Soumya+Infosys+8+LPA+Black+Background+Yellow+Lines" alt="Black background with yellow lines and photo of RK Soumya smiling, male, black and white photo" class="w-full h-auto object-cover" />
+                        <button aria-label="Play video for RK Soumya" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-1.5">
+                            <i class="fas fa-play text-black text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="relative rounded-md overflow-hidden cursor-pointer" style="background-color:#000000" aria-label="Video card for Abhishek v at dayforce with 7.5 LPA">
+                        <img src="https://placehold.co/300x100/000000/ffffff?text=Abhishek+v+dayforce+7.5+LPA+Black+Background+Yellow+Lines" alt="Black background with yellow lines and photo of Abhishek v smiling, male, black and white photo" class="w-full h-auto object-cover" />
+                        <button aria-label="Play video for Abhishek v" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-1.5">
+                            <i class="fas fa-play text-black text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="relative rounded-md overflow-hidden cursor-pointer" style="background-color:#b30000" aria-label="Video card for S M Fahed at SOCIETE GENERALE with 5.4 LPA">
+                        <img src="https://placehold.co/300x100/b30000/ffffff?text=S+M+Fahed+SOCIETE+GENERALE+5.4+LPA+Red+Background+Yellow+Lines" alt="Red background with yellow lines and photo of S M Fahed smiling, male, black and white photo" class="w-full h-auto object-cover" />
+                        <button aria-label="Play video for S M Fahed" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-1.5">
+                            <i class="fas fa-play text-black text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="relative rounded-md overflow-hidden cursor-pointer" style="background-color:#000000" aria-label="Video card for Chrisel goveas with 4 LPA">
+                        <img src="https://placehold.co/300x100/000000/ffffff?text=Chrisel+goveas+4+LPA+Black+Background+Yellow+Lines" alt="Black background with yellow lines and photo of Chrisel goveas smiling, male, black and white photo" class="w-full h-auto object-cover" />
+                        <button aria-label="Play video for Chrisel goveas" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-1.5">
+                            <i class="fas fa-play text-black text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer text #KodNest -->
+        <footer class="text-center py-6 font-extrabold text-lg tracking-widest select-none">
+            #KodNest
+        </footer>
+    </main>
+
+    <!-- BroKod vertical tab on right side -->
+    <button aria-label="BroKod chat button" class="fixed right-0 top-1/2 -translate-y-1/2 bg-yellow-400 text-black text-xs font-semibold px-3 py-1 rounded-l-md rotate-90 origin-bottom-right shadow-md hover:bg-yellow-500 transition z-40">
+        BroKod
+    </button>
+
+    <!-- Bottom left question mark button -->
+    <button aria-label="Help question mark" class="fixed bottom-4 left-4 bg-yellow-400 text-black font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:bg-yellow-500 transition z-40">
+        ?
+    </button>
+</body>
+</html> 

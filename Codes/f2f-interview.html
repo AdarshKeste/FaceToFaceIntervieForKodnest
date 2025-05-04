@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F2F Interview - KodNest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f6f8fc 0%, #f0f4f8 100%);
+            overflow: hidden;
+        }
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .webcam-container {
+            aspect-ratio: 16/9;
+            background-color: #000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .chat-container {
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .interview-tips {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 14px;
+            transition: opacity 0.3s;
+        }
+        .confidence-meter {
+            width: 100%;
+            height: 10px;
+            max-width: 200px;
+            background: #ddd;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .confidence-level {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #eab308);
+            transition: width 0.3s ease;
+        }
+        .blink-record {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .typing-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background: #4B5563;
+            border-radius: 50%;
+            animation: typing 1s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .modal-max-height {
+            max-height: 80vh;
+        }
+        
+        /* Custom scrollbar styles */
+        .modal-max-height::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .modal-max-height::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .modal-max-height::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        .modal-max-height::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+
+        /* Modal content styles */
+        .modal-content-max-height {
+            max-height: 80vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #888 #f1f1f1;
+        }
+
+        /* Modal container */
+        #summaryModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        #summaryModal.flex {
+            display: flex;
+        }
+
+        /* Sticky header and footer */
+        .modal-sticky-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 1rem;
+        }
+
+        .modal-sticky-footer {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            z-index: 10;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 -4px 6px -1px rgba(0,0,0,0.1);
+            padding-top: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Modal sections spacing */
+        .modal-section {
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+
+        .modal-section:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100">
+    <!-- Pre-interview Instructions Modal -->
+    <div id="instructionsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-8 max-w-2xl w-full mx-4 glass-effect">
+            <div class="space-y-6">
+                <h2 class="text-2xl font-bold text-gray-800">Welcome to Your Technical Interview</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-700">Before we begin:</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li>Ensure your camera and microphone are working</li>
+                        <li>Find a quiet, well-lit environment</li>
+                        <li>Have a notepad ready for any coding exercises</li>
+                        <li>Speak clearly and maintain eye contact with the camera</li>
+                        <li>Take your time to think before answering</li>
+                    </ul>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="text-blue-800">This interview will assess:</p>
+                        <ul class="list-disc pl-5 mt-2 text-blue-600">
+                            <li>Technical knowledge</li>
+                            <li>Problem-solving skills</li>
+                            <li>Communication ability</li>
+                            <li>Real-world application understanding</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <div class="flex items-center space-x-2">
+                        <input type="checkbox" id="dontShowAgain" class="rounded text-yellow-400">
+                        <label for="dontShowAgain" class="text-sm text-gray-600">Don't show this again</label>
+                    </div>
+                    <button id="startInterview" class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold py-2 px-6 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all transform hover:scale-105">
+                        Start Interview
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Interview Interface -->
+    <div id="interviewInterface" class="hidden">
+        <!-- Navbar -->
+        <nav class="flex items-center justify-between px-4 md:px-8 py-3 glass-effect sticky top-0 z-50">
+            <div class="flex items-center space-x-2">
+                <div class="relative">
+                    <img src="https://placehold.co/24x24/000000/fff?text=K" alt="KodNest logo" class="w-8 h-8 rounded-lg shadow-lg" />
+                    <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full pulse"></div>
+                </div>
+                <span class="font-bold text-xl text-yellow-400 select-none">KodNest</span>
+                <span class="text-gray-400 mx-2">|</span>
+                <span class="orbitron font-semibold text-gray-700 tracking-wider">Technical Interview</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 px-3 py-1 bg-gray-100 rounded-full">
+                    <i class="fas fa-clock text-gray-600"></i>
+                    <span id="interviewTimer" class="text-sm font-medium text-gray-600">00:00</span>
+                </div>
+                <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex h-[calc(100vh-64px)] p-4 gap-4">
+            <!-- Left Panel - Camera and Input -->
+            <div class="w-1/2 space-y-4">
+                <div class="webcam-container rounded-xl overflow-hidden relative">
+                    <video id="webcam" autoplay playsinline class="w-full h-full object-cover"></video>
+                    <div class="absolute top-4 left-4 flex items-center space-x-2">
+                        <div id="recordingIndicator" class="hidden">
+                            <div class="flex items-center space-x-2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full">
+                                <div class="w-2 h-2 bg-red-500 rounded-full blink-record"></div>
+                                <span class="text-sm">Recording</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-4 right-4 space-x-2">
+                        <button id="toggleCamera" class="bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all transform hover:scale-105">
+                            <i class="fas fa-video"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="space-y-4 glass-effect p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-microphone text-gray-600"></i>
+                            <span class="text-sm text-gray-600">Voice Confidence</span>
+                        </div>
+                        <span id="confidenceScore" class="text-sm font-medium text-gray-600">0%</span>
+                    </div>
+                    <div class="confidence-meter">
+                        <div id="confidenceLevel" class="confidence-level" style="width: 0%"></div>
+                    </div>
+                    <textarea id="userInput" rows="4" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent resize-none bg-white bg-opacity-50 backdrop-blur-sm" placeholder="Type your answer here or click 'Start Speaking'..."></textarea>
+                    <div class="flex space-x-2">
+                        <button id="startRecording" class="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all transform hover:scale-105">
+                            <i class="fas fa-microphone mr-2"></i>
+                            Start Speaking
+                        </button>
+                        <button id="submitAnswer" class="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-green-600 hover:to-green-700 transition-all transform hover:scale-105">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Submit Answer
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - AI Interview Chat -->
+            <div class="w-1/2 glass-effect rounded-xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                            <i class="fas fa-robot text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="font-semibold text-blue-800">AI Interviewer</span>
+                            <p class="text-xs text-blue-600">Technical Interview Session</p>
+                        </div>
+                    </div>
+                    <button id="endInterview" class="bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:from-red-600 hover:to-red-700 transition-all transform hover:scale-105">
+                        <i class="fas fa-stop-circle mr-2"></i>
+                        End Interview
+                    </button>
+                </div>
+                <div class="chat-container overflow-y-auto space-y-4 pr-4">
+                    <div id="typingIndicator" class="hidden">
+                        <div class="flex items-center space-x-2 p-3 bg-gray-100 rounded-lg">
+                            <div class="typing-indicator">
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                            </div>
+                            <span class="text-sm text-gray-600">AI is thinking...</span>
+                        </div>
+                    </div>
+                    <div id="chatMessages"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interview Tips -->
+        <div id="interviewTip" class="interview-tips hidden"></div>
+    </div>
+
+    <!-- Interview Summary Modal -->
+    <div id="summaryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4 overflow-y-auto">
+        <div class="bg-white rounded-xl p-6 max-w-2xl w-full mx-auto my-4 glass-effect relative">
+            <div class="modal-content-max-height pr-2">
+                <div class="flex items-center justify-between modal-sticky-header">
+                    <h2 class="text-2xl font-bold text-gray-800">Interview Summary</h2>
+                    <button id="closeSummary" class="text-gray-500 hover:text-gray-700 p-2">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="modal-section bg-gradient-to-r from-blue-50 to-blue-100">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-3">Performance Overview</h3>
+                        <div id="performanceSummary" class="space-y-2">
+                            <!-- Performance summary will be added here -->
+                        </div>
+                    </div>
+                    <div class="modal-section bg-gradient-to-r from-green-50 to-green-100">
+                        <h3 class="text-lg font-semibold text-green-800 mb-3">Areas of Strength</h3>
+                        <div id="strengthsList" class="space-y-2">
+                            <!-- Strengths will be added here -->
+                        </div>
+                    </div>
+                    <div class="modal-section bg-gradient-to-r from-yellow-50 to-yellow-100">
+                        <h3 class="text-lg font-semibold text-yellow-800 mb-3">Areas for Improvement</h3>
+                        <div id="improvementsList" class="space-y-2">
+                            <!-- Improvements will be added here -->
+                        </div>
+                    </div>
+                    <div class="modal-section bg-gradient-to-r from-purple-50 to-purple-100">
+                        <h3 class="text-lg font-semibold text-purple-800 mb-3">Recommendations</h3>
+                        <div id="recommendationsList" class="text-gray-700 leading-relaxed">
+                            <!-- Recommendations will be added here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-sticky-footer">
+                    <div class="flex justify-end space-x-4">
+                        <button id="downloadSummary" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all">
+                            <i class="fas fa-download mr-2"></i>
+                            Download Summary
+                        </button>
+                        <button id="returnToHomepage" class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold py-2 px-6 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all">
+                            <i class="fas fa-home mr-2"></i>
+                            Return to Homepage
+                        </button>
+                        <button id="restartInterview" class="bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-2 px-6 rounded-lg hover:from-green-600 hover:to-green-700 transition-all">
+                            <i class="fas fa-redo mr-2"></i>
+                            Start New Interview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gemini API configuration
+        const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+
+        // Function to check if API key is available
+        function checkApiKey() {
+            if (!GEMINI_API_KEY) {
+                showError('Gemini API key is not configured. Please set up your environment variables.');
+                return false;
+            }
+            return true;
+        }
+
+        // DOM Elements
+        const instructionsModal = document.getElementById('instructionsModal');
+        const interviewInterface = document.getElementById('interviewInterface');
+        const startInterviewBtn = document.getElementById('startInterview');
+        const dontShowAgainCheckbox = document.getElementById('dontShowAgain');
+        const webcamVideo = document.getElementById('webcam');
+        const toggleCameraBtn = document.getElementById('toggleCamera');
+        const userInput = document.getElementById('userInput');
+        const submitAnswer = document.getElementById('submitAnswer');
+        const chatMessages = document.getElementById('chatMessages');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const startRecordingBtn = document.getElementById('startRecording');
+        const recordingIndicator = document.getElementById('recordingIndicator');
+        const interviewTimer = document.getElementById('interviewTimer');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const interviewTip = document.getElementById('interviewTip');
+        const confidenceLevel = document.getElementById('confidenceLevel');
+        const confidenceScore = document.getElementById('confidenceScore');
+        const summaryModal = document.getElementById('summaryModal');
+        const closeSummaryBtn = document.getElementById('closeSummary');
+        const downloadSummaryBtn = document.getElementById('downloadSummary');
+        const restartInterviewBtn = document.getElementById('restartInterview');
+        const performanceSummary = document.getElementById('performanceSummary');
+        const strengthsList = document.getElementById('strengthsList');
+        const improvementsList = document.getElementById('improvementsList');
+        const recommendationsList = document.getElementById('recommendationsList');
+
+        // Global variables
+        var mediaRecorder = null;
+        let recordedChunks = [];
+        let videoStream = null;
+        
+        // Initialize speech synthesis
+        const synth = window.speechSynthesis;
+        let speaking = false;
+
+        // Function to speak text
+        function speakText(text) {
+            if (speaking) {
+                synth.cancel(); // Stop any current speech
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.onstart = () => { speaking = true; };
+            utterance.onend = () => { speaking = false; };
+            synth.speak(utterance);
+        }
+        let permissionsGranted = false;
+        let questionCount = 0;
+        let isRecording = false;
+        let recognitionRestartTimeout;
+        const TOTAL_QUESTIONS = 7; // Standard length for technical interview
+        let interviewStartTime;
+        let interviewTimerInterval;
+        let currentTipIndex = 0;
+        let interviewScore = 0;
+
+        const interviewTips = [
+            "Speak clearly and confidently",
+            "Use specific examples from your experience",
+            "Take a moment to think before answering",
+            "Be honest if you're unsure about something",
+            "Focus on your problem-solving process"
+        ];
+
+        // Speech Recognition Setup with better error handling
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart = () => {
+            console.log('Speech recognition started');
+            isRecording = true;
+            updateRecordingUI(true);
+        };
+
+        recognition.onend = () => {
+            console.log('Speech recognition ended');
+            // Only restart if we're still supposed to be recording
+            if (isRecording) {
+                try {
+                    recognition.start();
+                } catch (error) {
+                    console.error('Error restarting recognition:', error);
+                    stopSpeechRecording();
+                }
+            }
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            let errorMessage = '';
+            
+            switch(event.error) {
+                case 'no-speech':
+                    errorMessage = 'No speech detected. Please try speaking again.';
+                    // Don't show alert for no-speech, just restart
+                    restartRecognition();
+                    return;
+                case 'aborted':
+                    errorMessage = 'Speech recognition was aborted.';
+                    break;
+                case 'audio-capture':
+                    errorMessage = 'No microphone detected. Please check your microphone.';
+                    break;
+                case 'network':
+                    errorMessage = 'Network error occurred. Please check your connection.';
+                    break;
+                case 'not-allowed':
+                    errorMessage = 'Microphone access denied. Please allow microphone access.';
+                    break;
+                default:
+                    errorMessage = 'An error occurred with speech recognition.';
+            }
+            
+            showError(errorMessage);
+            stopSpeechRecording();
+        };
+
+        recognition.onresult = (event) => {
+            try {
+                let finalTranscript = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const result = event.results[i];
+                    const transcript = result[0].transcript.trim();
+                    
+                    if (result.isFinal) {
+                        finalTranscript += (finalTranscript ? ' ' : '') + transcript;
+                        const confidence = Math.round(result[0].confidence * 100);
+                        updateConfidence(confidence);
+                    }
+                }
+                
+                if (finalTranscript) {
+                    // Append only final results to avoid interim overlaps
+                    const currentText = userInput.value.trim();
+                    const newText = currentText ? `${currentText} ${finalTranscript}` : finalTranscript;
+                    userInput.value = newText.trim();
+                    
+                    // Auto-scroll textarea to the bottom
+                    userInput.scrollTop = userInput.scrollHeight;
+                }
+            } catch (error) {
+                console.error('Error processing speech result:', error);
+                showError('Error processing speech input. Please try again.');
+            }
+        };
+
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed bottom-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg';
+            errorDiv.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(errorDiv);
+            setTimeout(() => errorDiv.remove(), 5000);
+        }
+
+        function restartRecognition() {
+            if (recognitionRestartTimeout) {
+                clearTimeout(recognitionRestartTimeout);
+            }
+            recognitionRestartTimeout = setTimeout(() => {
+                if (isRecording) {
+                    try {
+                        recognition.start();
+                    } catch (error) {
+                        console.error('Error restarting recognition:', error);
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateRecordingUI(isRecording) {
+            const button = document.getElementById('startRecording');
+            const indicator = document.getElementById('recordingIndicator');
+            
+            if (isRecording) {
+                button.innerHTML = '<i class="fas fa-stop mr-2"></i>Stop Speaking';
+                button.classList.remove('from-blue-500', 'to-blue-600');
+                button.classList.add('from-red-500', 'to-red-600');
+                indicator.classList.remove('hidden');
+            } else {
+                button.innerHTML = '<i class="fas fa-microphone mr-2"></i>Start Speaking';
+                button.classList.remove('from-red-500', 'to-red-600');
+                button.classList.add('from-blue-500', 'to-blue-600');
+                indicator.classList.add('hidden');
+            }
+        }
+
+        // Start Interview
+        startInterviewBtn.addEventListener('click', () => {
+            if (dontShowAgainCheckbox.checked) {
+                localStorage.setItem('dontShowInstructions', 'true');
+            }
+            instructionsModal.classList.add('hidden');
+            interviewInterface.classList.remove('hidden');
+            startInterview();
+        });
+
+        // Check if we should show instructions
+        if (localStorage.getItem('dontShowInstructions') === 'true') {
+            instructionsModal.classList.add('hidden');
+            interviewInterface.classList.remove('hidden');
+            startInterview();
+        }
+
+        // Webcam Setup
+        async function setupWebcam() {
+            try {
+                // Request both video and audio permissions at once
+                videoStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: true,
+                    audio: true 
+                });
+                
+                // Set up video stream
+                webcamVideo.srcObject = videoStream;
+                webcamVideo.muted = true; // Prevent feedback
+                
+                try {
+                    await webcamVideo.play();
+                    console.log('Webcam started successfully');
+                    // Enable recording button only after successful setup
+                    startRecordingBtn.disabled = false;
+                    startRecordingBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    permissionsGranted = true;
+                } catch (playError) {
+                    console.error('Error playing webcam:', playError);
+                    throw new Error('Failed to start webcam playback');
+                }
+                
+            } catch (error) {
+                console.error('Error accessing camera/microphone:', error);
+                showPermissionError();
+            }
+        }
+
+        function showPermissionError() {
+            // Create error message container
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'absolute inset-0 flex items-center justify-center bg-gray-900 text-white text-center p-4';
+            errorDiv.innerHTML = `
+                <div class="space-y-4">
+                    <div class="text-yellow-500 text-5xl mb-4">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Camera/Microphone Access Required</h3>
+                    <p class="text-gray-300 mb-4">Please allow access to your camera and microphone to continue the interview.</p>
+                    <ol class="text-left text-sm space-y-2 text-gray-400 mb-6">
+                        <li>1. Click the camera icon in your browser's address bar</li>
+                        <li>2. Select "Allow" for both camera and microphone</li>
+                        <li>3. Click the button below to try again</li>
+                    </ol>
+                    <button onclick="retryWebcamSetup()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-redo mr-2"></i>Try Again
+                    </button>
+                </div>
+            `;
+            
+            // Clear any existing video
+            webcamVideo.style.display = 'none';
+            webcamVideo.parentElement.appendChild(errorDiv);
+        }
+
+        async function retryWebcamSetup() {
+            // Remove error message if it exists
+            const errorDiv = webcamVideo.parentElement.querySelector('div');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+            
+            // Show video element again
+            webcamVideo.style.display = 'block';
+            
+            // Try setup again
+            await setupWebcam();
+        }
+
+        // Start Interview with proper initialization
+
+        let recordedVideoUrl = null;
+
+        function startInterview() {
+            setupWebcam().then(() => {
+                interviewStartTime = Date.now();
+                interviewTimerInterval = setInterval(updateInterviewTimer, 1000);
+                showNextTip();
+                setInterval(showNextTip, 30000);
+
+                // --- Start video recording automatically ---
+                if (videoStream) {
+                    recordedChunks = [];
+                    mediaRecorder = new MediaRecorder(videoStream, { mimeType: 'video/webm' });
+                    mediaRecorder.ondataavailable = function(event) {
+                        if (event.data.size > 0) {
+                            recordedChunks.push(event.data);
+                        }
+                    };
+                    mediaRecorder.onstop = function() {
+                        if (recordedChunks.length > 0) {
+                            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                            recordedVideoUrl = URL.createObjectURL(blob);
+                            // Show download button if modal is open
+                            showDownloadVideoButton();
+                        }
+                    };
+                    mediaRecorder.start();
+                }
+
+                // More open-ended initial question
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    // Only add the initial message if the chat is empty
+                    if (chatMessages.innerHTML.trim() === '') {
+                        addMessageToChat('ai', 'Please introduce yourself and tell me about your technical background and areas of expertise.');
+                    }
+                }, 2000);
+            }).catch(error => {
+                console.error('Failed to start interview:', error);
+            });
+        }
+
+        // Helper to show/hide Download Video button
+        function showDownloadVideoButton() {
+            const btn = document.getElementById('downloadVideoBtn');
+            if (btn && recordedVideoUrl) {
+                btn.classList.remove('hidden');
+                btn.disabled = false;
+            }
+        }
+        function hideDownloadVideoButton() {
+            const btn = document.getElementById('downloadVideoBtn');
+            if (btn) {
+                btn.classList.add('hidden');
+                btn.disabled = true;
+            }
+        }
+
+        function updateInterviewTimer() {
+            const elapsed = Math.floor((Date.now() - interviewStartTime) / 1000);
+            const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
+            const seconds = (elapsed % 60).toString().padStart(2, '0');
+            interviewTimer.textContent = `${minutes}:${seconds}`;
+        }
+
+        function showNextTip() {
+            interviewTip.textContent = interviewTips[currentTipIndex];
+            interviewTip.classList.remove('hidden');
+            setTimeout(() => interviewTip.classList.add('hidden'), 5000);
+            currentTipIndex = (currentTipIndex + 1) % interviewTips.length;
+        }
+
+        function updateConfidence(level) {
+            confidenceLevel.style.width = `${level}%`;
+            confidenceScore.textContent = `${level}%`;
+        }
+
+        // Updated Start Recording function
+        function startSpeechRecording() {
+            if (!permissionsGranted) {
+                showError('Please allow camera and microphone access first');
+                return;
+            }
+            
+            try {
+                recognition.start();
+                updateRecordingUI(true);
+            } catch (error) {
+                console.error('Recording error:', error);
+                showError('Error starting recording. Please try again.');
+            }
+        }
+
+        function stopSpeechRecording() {
+            isRecording = false;
+            if (recognitionRestartTimeout) {
+                clearTimeout(recognitionRestartTimeout);
+            }
+            try {
+                recognition.stop();
+            } catch (error) {
+                console.error('Error stopping recognition:', error);
+            }
+            updateRecordingUI(false);
+        }
+
+        // Update the start recording button click handler
+        startRecordingBtn.addEventListener('click', () => {
+            if (!videoStream) {
+                showPermissionError();
+                return;
+            }
+            
+            if (isRecording) {
+                stopSpeechRecording();
+            } else {
+                startSpeechRecording();
+            }
+        });
+
+        // Show/Hide Typing Indicator
+        function showTypingIndicator() {
+            typingIndicator.classList.remove('hidden');
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.classList.add('hidden');
+        }
+
+        // Submit Answer
+        submitAnswer.addEventListener('click', async () => {
+            const answer = userInput.value.trim();
+            if (!answer) return;
+
+            if (isRecording) {
+                stopSpeechRecording();
+            }
+
+            addMessageToChat('user', answer);
+            showTypingIndicator();
+
+            try {
+                // Grammar correction and score calculation
+                const correctedAnswer = await sendToGemini(answer, 'Please correct any grammar mistakes in this text and return only the corrected version.');
+                addMessageToChat('correction', correctedAnswer);
+
+                // Increment question counter
+                questionCount++;
+
+                // Check if we've reached the end of the interview
+                if (questionCount >= TOTAL_QUESTIONS) {
+                    await endInterviewProcess();
+                    return;
+                }
+
+                // Continue with next question if not at the end
+                showTypingIndicator();
+                setTimeout(async () => {
+                    const nextQuestion = await generateNextQuestion(correctedAnswer);
+                    hideTypingIndicator();
+                    addMessageToChat('ai', nextQuestion);
+                }, 1500);
+
+                userInput.value = '';
+                updateConfidence(0);
+            } catch (error) {
+                console.error('Error processing answer:', error);
+                hideTypingIndicator();
+                alert('Error processing your answer. Please try again.');
+            }
+        });
+
+        // Generate next interview question
+        async function generateNextQuestion(answer) {
+            const prompt = `You are conducting a technical interview. Generate ONE direct follow-up question based on this answer: "${answer}"
+
+Rules for the question:
+1. Do NOT include any prefacing text like "Based on the candidate's statement" or "Here's a good follow-up"
+2. Do NOT use markdown formatting or quotes
+3. Just write the question directly
+4. Keep it concise (1-2 sentences)
+5. Focus on technical aspects mentioned in their answer
+6. If they mention a specific technology, ask about its implementation or challenges
+7. Make it relevant to their stated expertise
+
+Example format:
+What specific design patterns have you implemented in your Java applications?
+
+NOT like this:
+"Based on your Java experience, here's a follow-up: What design patterns have you used?"`;
+
+            const response = await sendToGemini(prompt, 'Generate interview question');
+            
+            // Clean up the response by removing any quotes, prefacing text, or markdown
+            return response
+                .replace(/^[^A-Za-z0-9]*(Okay|Based|Here|Now)[^?]*\?/g, '') // Remove common prefacing patterns
+                .replace(/^["'`]|["'`]$/g, '') // Remove surrounding quotes
+                .replace(/\*\*/g, '') // Remove markdown
+                .trim(); // Remove extra whitespace
+        }
+
+        // Update the sendToGemini function to handle evaluation better
+        async function sendToGemini(text, instruction) {
+            if (!checkApiKey()) {
+                // Return a fallback response if API key is not available
+                if (instruction === 'Generate interview evaluation') {
+                    return JSON.stringify({
+                        overall_rating: "3.0",
+                        summary: "Interview completed. API key not configured.",
+                        technical_competency: "Technical skills were demonstrated throughout the interview.",
+                        communication: "Maintained clear communication during the interview.",
+                        strengths: [
+                            "Completed the interview process",
+                            "Engaged with technical questions",
+                            "Provided relevant responses"
+                        ],
+                        improvements: [
+                            "Continue developing technical depth",
+                            "Practice more detailed explanations",
+                            "Explore broader technical concepts"
+                        ],
+                        recommendations: "Continue practicing technical interviews and expanding knowledge in your areas of expertise."
+                    });
+                }
+                return "I apologize, but the AI service is currently unavailable. Please try again later.";
+            }
+
+            try {
+                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ 
+                                text: instruction === 'Generate interview evaluation' ? 
+                                    // For evaluation, use a more structured prompt
+                                    `You are an expert technical interviewer. Review this interview and provide feedback. Format your response as a valid JSON object with these fields:
+                                    {
+                                        "overall_rating": "4.5",
+                                        "summary": "Clear and concise evaluation of overall performance",
+                                        "technical_competency": "Assessment of technical skills",
+                                        "communication": "Evaluation of communication ability",
+                                        "strengths": ["strength1", "strength2", "strength3"],
+                                        "improvements": ["improvement1", "improvement2", "improvement3"],
+                                        "recommendations": "Specific advice for improvement"
+                                    }
+                                    
+                                    Interview transcript to evaluate:
+                                    ${text}`
+                                    : 
+                                    // For other cases, use the original prompt
+                                    `${instruction}\n\nText: ${text}`
+                            }]
+                        }],
+                        generationConfig: {
+                            temperature: instruction === 'Generate interview evaluation' ? 0.1 : 0.7,
+                            maxOutputTokens: instruction === 'Generate interview evaluation' ? 1000 : 100
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+                if (!data.candidates?.[0]?.content?.parts?.[0]) {
+                    throw new Error('Invalid response format from API');
+                }
+
+                const result = data.candidates[0].content.parts[0].text;
+
+                // For evaluation, verify JSON format
+                if (instruction === 'Generate interview evaluation') {
+                    try {
+                        // Remove any markdown formatting or extra text before/after JSON
+                        const jsonStr = result.replace(/```json\s*|\s*```/g, '').trim();
+                        const parsed = JSON.parse(jsonStr);
+                        
+                        // Verify all required fields are present
+                        const requiredFields = ['overall_rating', 'summary', 'technical_competency', 
+                                             'communication', 'strengths', 'improvements', 'recommendations'];
+                        
+                        for (const field of requiredFields) {
+                            if (!(field in parsed)) {
+                                throw new Error(`Missing required field: ${field}`);
+                            }
+                        }
+                        
+                        return JSON.stringify(parsed);
+                    } catch (e) {
+                        console.error('JSON parsing error:', e);
+                        // Provide fallback evaluation
+                        return JSON.stringify({
+                            overall_rating: "3.0",
+                            summary: "Interview completed successfully. The candidate demonstrated technical knowledge and communication skills.",
+                            technical_competency: "Demonstrated understanding of technical concepts discussed.",
+                            communication: "Able to articulate thoughts and explain technical concepts.",
+                            strengths: [
+                                "Technical knowledge",
+                                "Communication ability",
+                                "Problem-solving approach"
+                            ],
+                            improvements: [
+                                "Provide more detailed examples",
+                                "Expand on technical implementations",
+                                "Consider different approaches to solutions"
+                            ],
+                            recommendations: "Focus on providing more detailed technical examples and consider multiple approaches to problem-solving."
+                        });
+                    }
+                }
+
+                return result;
+            } catch (error) {
+                console.error('Gemini API error:', error);
+                if (instruction === 'Generate interview evaluation') {
+                    // Provide fallback evaluation on API error
+                    return JSON.stringify({
+                        overall_rating: "3.0",
+                        summary: "Interview completed. Due to technical limitations, providing a standard evaluation.",
+                        technical_competency: "Technical skills were demonstrated throughout the interview.",
+                        communication: "Maintained clear communication during the interview.",
+                        strengths: [
+                            "Completed the interview process",
+                            "Engaged with technical questions",
+                            "Provided relevant responses"
+                        ],
+                        improvements: [
+                            "Continue developing technical depth",
+                            "Practice more detailed explanations",
+                            "Explore broader technical concepts"
+                        ],
+                        recommendations: "Continue practicing technical interviews and expanding knowledge in your areas of expertise."
+                    });
+                }
+                throw error;
+            }
+        }
+
+        // Add message to chat
+        function addMessageToChat(type, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'p-6 rounded-xl shadow-sm mb-4 transform transition-all hover:scale-102 ' + 
+                (type === 'user' ? 'bg-gradient-to-r from-yellow-50 to-yellow-100 border border-yellow-200 ml-8' :
+                type === 'correction' ? 'bg-gradient-to-r from-green-50 to-green-100 border border-green-200 ml-8' : 
+                'bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200');
+
+            const icon = type === 'user' ? 'fa-user' :
+                        type === 'correction' ? 'fa-check-circle' : 'fa-robot';
+            
+            const label = type === 'user' ? 'You' :
+                         type === 'correction' ? 'Grammar Correction' : 'AI Interviewer';
+
+            const iconColor = type === 'user' ? 'bg-yellow-500' :
+                            type === 'correction' ? 'bg-green-500' : 'bg-blue-500';
+
+            messageDiv.innerHTML = `
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-10 h-10 rounded-full ${iconColor} flex items-center justify-center">
+                        <i class="fas ${icon} text-white text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-semibold">${label}</span>
+                                <p class="text-xs text-gray-600">${new Date().toLocaleTimeString()}</p>
+                            </div>
+                            ${type === 'ai' ? `
+                            <button class="text-blue-600 hover:text-blue-800" onclick="speakText(this.closest('.flex-1').nextElementSibling.textContent)">
+                                <i class="fas fa-volume-up"></i>
+                            </button>` : ''}
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-700">${message}</p>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            messageDiv.scrollIntoView({ behavior: 'smooth' });
+
+            // Automatically speak AI messages
+            if (type === 'ai') {
+                speakText(message);
+            }
+            
+            // Store in history
+            interviewHistory.push({
+                type,
+                message,
+                timestamp: new Date().toLocaleTimeString()
+            });
+        }
+
+        // Toggle Camera
+        let isCameraOn = true;
+        toggleCameraBtn.addEventListener('click', () => {
+            const stream = webcamVideo.srcObject;
+            if (stream) {
+                const tracks = stream.getVideoTracks();
+                tracks.forEach(track => {
+                    track.enabled = !track.enabled;
+                    isCameraOn = track.enabled;
+                });
+                toggleCameraBtn.innerHTML = isCameraOn ? '<i class="fas fa-video"></i>' : '<i class="fas fa-video-slash"></i>';
+            }
+        });
+
+        // Dark Mode Toggle
+        let isDarkMode = false;
+        darkModeToggle.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('bg-gray-900');
+            document.querySelectorAll('.glass-effect').forEach(el => {
+                el.classList.toggle('bg-gray-800');
+                el.classList.toggle('text-white');
+            });
+            darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Interview Completion
+        let interviewHistory = [];
+
+        // End Interview
+        const endInterviewBtn = document.getElementById('endInterview');
+
+        // New function for structured interview ending
+async function endInterviewProcess() {
+    showTypingIndicator();
+
+    // --- Stop video recording if running ---
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+    }
+
+    // Final wrap-up message
+    const wrapUpMessage = "We've reached the end of the technical interview questions. I'll now provide you with a comprehensive evaluation of your performance.";
+    addMessageToChat('ai', wrapUpMessage);
+
+    try {
+        // Format interview history for evaluation
+        const formattedHistory = interviewHistory.map(entry => {
+            return `${entry.type === 'ai' ? 'Question' : 'Answer'}: ${entry.message}`;
+        }).join('\n\n');
+
+                // Generate detailed evaluation with simpler prompt
+                const evaluationPrompt = `Review this technical interview and provide feedback in this exact JSON format:
+{
+    "overall_rating": "3.5",
+    "summary": "Brief overall performance summary",
+    "technical_competency": "Technical skills assessment",
+    "communication": "Communication skills assessment",
+    "strengths": ["strength 1", "strength 2", "strength 3"],
+    "improvements": ["improvement 1", "improvement 2", "improvement 3"],
+    "recommendations": "Specific advice for improvement"
+}
+
+Interview transcript:
+${formattedHistory}`;
+
+                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: evaluationPrompt }]
+                        }],
+                        generationConfig: {
+                            temperature: 0.1,
+                            maxOutputTokens: 1000,
+                            topP: 0.8,
+                            topK: 40
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+                if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
+                    throw new Error('Invalid API response format');
+                }
+
+                let evaluationData;
+                try {
+                    // Clean up the response text and parse JSON
+                    const cleanJson = data.candidates[0].content.parts[0].text
+                        .replace(/```json\s*|\s*```/g, '')  // Remove markdown code blocks
+                        .replace(/[\u201C\u201D]/g, '"')    // Replace smart quotes
+                        .trim();
+                    evaluationData = JSON.parse(cleanJson);
+                } catch (parseError) {
+                    console.error('JSON parsing error:', parseError);
+                    // Use fallback evaluation
+                    evaluationData = {
+                        overall_rating: "3.0",
+                        summary: "The interview was completed successfully. You demonstrated technical knowledge and communication skills.",
+                        technical_competency: "You showed understanding of the technical concepts discussed.",
+                        communication: "You were able to articulate your thoughts and explain technical concepts.",
+                        strengths: [
+                            "Technical knowledge demonstration",
+                            "Clear communication",
+                            "Problem-solving approach"
+                        ],
+                        improvements: [
+                            "Provide more detailed examples",
+                            "Expand on technical implementations",
+                            "Consider alternative approaches"
+                        ],
+                        recommendations: "Focus on providing more detailed technical examples and consider multiple approaches to problem-solving."
+                    };
+                }
+
+                // Update the modal content
+                performanceSummary.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-lg font-semibold">Overall Rating:</span>
+                            <div class="flex items-center">
+                                <span class="text-2xl font-bold text-yellow-500">${evaluationData.overall_rating}</span>
+                                <span class="text-gray-500 ml-1">/5.0</span>
+                            </div>
+                        </div>
+                        <div class="text-gray-700 leading-relaxed">
+                            <p class="mb-4"><strong>Summary:</strong> ${evaluationData.summary}</p>
+                            <p class="mb-4"><strong>Technical Competency:</strong> ${evaluationData.technical_competency}</p>
+                            <p class="mb-4"><strong>Communication:</strong> ${evaluationData.communication}</p>
+                        </div>
+                    </div>`;
+
+                strengthsList.innerHTML = evaluationData.strengths.map(strength => 
+                    `<div class="flex items-center space-x-2 p-2 bg-white bg-opacity-50 rounded-lg">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700">${strength}</span>
+                    </div>`
+                ).join('');
+
+                improvementsList.innerHTML = evaluationData.improvements.map(improvement => 
+                    `<div class="flex items-center space-x-2 p-2 bg-white bg-opacity-50 rounded-lg">
+                        <i class="fas fa-lightbulb text-yellow-500"></i>
+                        <span class="text-gray-700">${improvement}</span>
+                    </div>`
+                ).join('');
+
+                recommendationsList.innerHTML = `
+                    <div class="text-gray-700 leading-relaxed">
+                        ${evaluationData.recommendations}
+                    </div>`;
+
+                // Show the modal
+                summaryModal.classList.remove('hidden');
+                summaryModal.classList.add('flex');
+                window.evaluationData = evaluationData;
+
+            } catch (error) {
+                console.error('Error in interview evaluation:', error);
+                alert('Error generating interview evaluation. Please try again.');
+            } finally {
+                hideTypingIndicator();
+            }
+        }
+
+        // Update the manual end interview button to use the same process
+        endInterviewBtn.addEventListener('click', async () => {
+            if (interviewHistory.length === 0) {
+                alert('Please complete at least one question before ending the interview.');
+                return;
+            }
+
+            if (confirm('Are you sure you want to end the interview? This will generate your final evaluation.')) {
+                await endInterviewProcess();
+            }
+        });
+
+        // Close Summary Modal
+        closeSummaryBtn.addEventListener('click', () => {
+            summaryModal.classList.add('hidden');
+            summaryModal.classList.remove('flex');
+        });
+
+        // Download Summary
+        downloadSummaryBtn.addEventListener('click', () => {
+            if (!window.evaluationData) {
+                alert('Summary is not ready yet. Please wait for the evaluation to finish.');
+                return;
+            }
+            const summary = {
+                interviewDate: new Date().toLocaleString(),
+                overallRating: evaluationData.overall_rating,
+                summary: evaluationData.summary,
+                technicalCompetency: evaluationData.technical_competency,
+                communication: evaluationData.communication,
+                strengths: evaluationData.strengths,
+                improvements: evaluationData.improvements,
+                recommendations: evaluationData.recommendations,
+                interviewHistory: interviewHistory
+            };
+
+            const formattedSummary = `
+Technical Interview Evaluation
+============================
+Date: ${summary.interviewDate}
+
+Overall Rating: ${summary.overallRating}/5.0
+
+Performance Summary
+-----------------
+${summary.summary}
+
+Technical Competency
+------------------
+${summary.technicalCompetency}
+
+Communication Skills
+------------------
+${summary.communication}
+
+Key Strengths
+------------
+${summary.strengths.map(s => '- ' + s).join('\n')}
+
+Areas for Improvement
+-------------------
+${summary.improvements.map(i => '- ' + i).join('\n')}
+
+Recommendations
+-------------
+${summary.recommendations}
+
+Interview Transcript
+------------------
+${summary.interviewHistory.map(entry => 
+    `[${entry.timestamp}] ${entry.type === 'ai' ? 'Interviewer' : 'You'}: ${entry.message}`
+).join('\n')}
+`;
+
+            const blob = new Blob([formattedSummary], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `technical-interview-evaluation-${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Download Video
+        const downloadVideoBtn = document.getElementById('downloadVideoBtn');
+        if (downloadVideoBtn) {
+            downloadVideoBtn.addEventListener('click', () => {
+                if (recordedVideoUrl) {
+                    const a = document.createElement('a');
+                    a.href = recordedVideoUrl;
+                    a.download = `interview-video-${new Date().toISOString().slice(0,10)}.webm`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                } else {
+                    alert('No video was recorded.');
+                }
+            });
+        }
+
+        // Hide video button initially
+        hideDownloadVideoButton();
+
+        // Return to Homepage
+        document.getElementById('returnToHomepage').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+
+        // Restart Interview
+        restartInterviewBtn.addEventListener('click', () => {
+            // Clear chat messages
+            chatMessages.innerHTML = '';
+            interviewHistory = [];
+            
+            // Reset to initial question
+            addMessageToChat('ai', 'Please introduce yourself and tell me about your technical background and areas of expertise.');
+            
+            // Close modal
+            summaryModal.classList.add('hidden');
+            summaryModal.classList.remove('flex');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Queries (move here for reliability)
+            const instructionsModal = document.getElementById('instructionsModal');
+            const interviewInterface = document.getElementById('interviewInterface');
+            const startInterviewBtn = document.getElementById('startInterview');
+            const dontShowAgainCheckbox = document.getElementById('dontShowAgain');
+
+            // Disable speaking button initially
+            startRecordingBtn.disabled = true;
+            startRecordingBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            setupWebcam();
+
+            // Start Interview Button Handler (move inside DOMContentLoaded)
+            if (startInterviewBtn) {
+                startInterviewBtn.addEventListener('click', () => {
+                    if (dontShowAgainCheckbox && dontShowAgainCheckbox.checked) {
+                        localStorage.setItem('dontShowInstructions', 'true');
+                    }
+                    if (instructionsModal) instructionsModal.classList.add('hidden');
+                    if (interviewInterface) interviewInterface.classList.remove('hidden');
+                    startInterview();
+                });
+            }
+
+            // Check if we should show instructions
+            if (localStorage.getItem('dontShowInstructions') === 'true') {
+                if (instructionsModal) instructionsModal.classList.add('hidden');
+                if (interviewInterface) interviewInterface.classList.remove('hidden');
+                startInterview();
+            }
+
+            // Update the manual end interview button to use the same process
+            if (endInterviewBtn) {
+                endInterviewBtn.addEventListener('click', async () => {
+                    if (interviewHistory.length === 0) {
+                        alert('Please complete at least one question before ending the interview.');
+                        return;
+                    }
+
+                    if (confirm('Are you sure you want to end the interview? This will generate your final evaluation.')) {
+                        await endInterviewProcess();
+                    }
+                });
+            }
+
+            // Close Summary Modal
+            if (closeSummaryBtn) {
+                closeSummaryBtn.addEventListener('click', () => {
+                    summaryModal.classList.add('hidden');
+                    summaryModal.classList.remove('flex');
+                });
+            }
+
+            // Download Summary
+            if (downloadSummaryBtn) {
+                downloadSummaryBtn.addEventListener('click', () => {
+                    if (!window.evaluationData) {
+                        alert('Summary is not ready yet. Please wait for the evaluation to finish.');
+                        return;
+                    }
+                    const summary = {
+                        interviewDate: new Date().toLocaleString(),
+                        overallRating: evaluationData.overall_rating,
+                        summary: evaluationData.summary,
+                        technicalCompetency: evaluationData.technical_competency,
+                        communication: evaluationData.communication,
+                        strengths: evaluationData.strengths,
+                        improvements: evaluationData.improvements,
+                        recommendations: evaluationData.recommendations,
+                        interviewHistory: interviewHistory
+                    };
+
+                    const formattedSummary = `
+Technical Interview Evaluation
+============================
+Date: ${summary.interviewDate}
+
+Overall Rating: ${summary.overallRating}/5.0
+
+Performance Summary
+-----------------
+${summary.summary}
+
+Technical Competency
+------------------
+${summary.technicalCompetency}
+
+Communication Skills
+------------------
+${summary.communication}
+
+Key Strengths
+------------
+${summary.strengths.map(s => '- ' + s).join('\n')}
+
+Areas for Improvement
+-------------------
+${summary.improvements.map(i => '- ' + i).join('\n')}
+
+Recommendations
+-------------
+${summary.recommendations}
+
+Interview Transcript
+------------------
+${summary.interviewHistory.map(entry => 
+    `[${entry.timestamp}] ${entry.type === 'ai' ? 'Interviewer' : 'You'}: ${entry.message}`
+).join('\n')}
+`;
+
+                    const blob = new Blob([formattedSummary], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `technical-interview-evaluation-${new Date().toISOString().slice(0,10)}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                });
+            }
+
+            // Download Video
+            const downloadVideoBtn = document.getElementById('downloadVideoBtn');
+            if (downloadVideoBtn) {
+                downloadVideoBtn.addEventListener('click', () => {
+                    if (recordedVideoUrl) {
+                        const a = document.createElement('a');
+                        a.href = recordedVideoUrl;
+                        a.download = `interview-video-${new Date().toISOString().slice(0,10)}.webm`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    } else {
+                        alert('No video was recorded.');
+                    }
+                });
+            }
+
+            // Hide video button initially
+            hideDownloadVideoButton();
+
+            // Return to Homepage
+            if (returnToHomepage) {
+                returnToHomepage.addEventListener('click', () => {
+                    window.location.href = 'index.html';
+                });
+            }
+
+            // Restart Interview event listener is already defined earlier in the code
+        });
+    </script>
+</body>
+</html>
